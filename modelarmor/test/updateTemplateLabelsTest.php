@@ -19,34 +19,11 @@ declare(strict_types=1);
 
 namespace Google\Cloud\Samples\ModelArmor;
 
-use Google\Cloud\ModelArmor\V1\CreateTemplateRequest;
-use Google\Cloud\ModelArmor\V1\FilterConfig;
-use Google\Cloud\ModelArmor\V1\Template;
-
 class updateTemplateLabelsTest extends BaseTestCase
 {
     protected static function getTemplatePrefix(): string
     {
         return 'php-update-template-labels-';
-    }
-
-    private static function createTemplate(string $projectId, string $locationId, string $templateId): void
-    {
-        $template = new Template()
-            ->setFilterConfig(new FilterConfig())
-            ->setLabels(['environment' => 'dev']);
-
-        $request = (new CreateTemplateRequest())
-            ->setParent("projects/{$projectId}/locations/{$locationId}")
-            ->setTemplateId($templateId)
-            ->setTemplate($template);
-
-        self::$client->createTemplate($request);
-    }
-
-    private static function randomTemplateId(): string
-    {
-        return uniqid('php-update-template-labels-');
     }
 
     public function testUpdateTemplateWithLabels()
@@ -55,8 +32,14 @@ class updateTemplateLabelsTest extends BaseTestCase
         $labelValue = 'test';
         $projectId = self::getProjectId();
 
-        // Create template before updating it.
-        self::createTemplate($projectId, self::$locationId, self::$templateId);
+        // Create template with labels before updating it.
+        $this->runSnippetfile('create_template_with_labels', [
+            $projectId,
+            self::$locationId,
+            self::$templateId,
+            'environment',
+            'dev',
+        ]);
 
         $output = $this->runSnippetfile('update_template_labels', [
             $projectId,

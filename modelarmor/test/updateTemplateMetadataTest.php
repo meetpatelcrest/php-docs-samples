@@ -19,11 +19,6 @@ declare(strict_types=1);
 
 namespace Google\Cloud\Samples\ModelArmor;
 
-use Google\Cloud\ModelArmor\V1\FilterConfig;
-use Google\Cloud\ModelArmor\V1\Template;
-use Google\Cloud\ModelArmor\V1\CreateTemplateRequest;
-use Google\Cloud\ModelArmor\V1\Template\TemplateMetadata;
-
 class updateTemplateMetadataTest extends BaseTestCase
 {
     protected static function getTemplatePrefix(): string
@@ -31,29 +26,16 @@ class updateTemplateMetadataTest extends BaseTestCase
         return 'php-update-template-metadata-';
     }
 
-    private static function createTemplate(string $projectId, string $locationId, string $templateId): void
-    {
-        $templateMetadata = (new TemplateMetadata())
-            ->setLogSanitizeOperations(false);
-
-        $template = new Template()
-            ->setFilterConfig(new FilterConfig())
-            ->setTemplateMetadata($templateMetadata);
-
-        $request = (new CreateTemplateRequest())
-            ->setParent("projects/{$projectId}/locations/{$locationId}")
-            ->setTemplateId($templateId)
-            ->setTemplate($template);
-
-        self::$client->createTemplate($request);
-    }
-
     public function testUpdateTemplateMetadata()
     {
         $projectId = self::getProjectId();
 
-        // Create template before updating it.
-        self::createTemplate($projectId, self::$locationId, self::$templateId);
+        // Create template with metadata before updating it.
+        $this->runSnippetfile('create_template_with_metadata', [
+            $projectId,
+            self::$locationId,
+            self::$templateId,
+        ]);
 
         $output = $this->runSnippetfile('update_template_metadata', [
             $projectId,

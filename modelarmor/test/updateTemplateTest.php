@@ -19,10 +19,6 @@ declare(strict_types=1);
 
 namespace Google\Cloud\Samples\ModelArmor;
 
-use Google\Cloud\ModelArmor\V1\CreateTemplateRequest;
-use Google\Cloud\ModelArmor\V1\FilterConfig;
-use Google\Cloud\ModelArmor\V1\Template;
-
 class updateTemplateTest extends BaseTestCase
 {
     protected static function getTemplatePrefix(): string
@@ -30,25 +26,16 @@ class updateTemplateTest extends BaseTestCase
         return 'php-update-template-';
     }
 
-    private static function createTemplate(string $projectId, string $locationId, string $templateId): void
-    {
-        $template = new Template()->setfilterConfig(new FilterConfig());
-
-        // Set template properties here if needed.
-        $request = (new CreateTemplateRequest())
-            ->setParent("projects/{$projectId}/locations/{$locationId}")
-            ->setTemplateId($templateId)
-            ->setTemplate($template);
-
-        self::$client->createTemplate($request);
-    }
-
     public function testUpdateTemplate()
     {
         $projectId = self::getProjectId();
 
         // Create template before updating it.
-        self::createTemplate($projectId, self::$locationId, self::$templateId);
+        $this->runSnippetfile('create_template', [
+            $projectId,
+            self::$locationId,
+            self::$templateId,
+        ]);
 
         $output = $this->runSnippetfile('update_template', [
             $projectId,
