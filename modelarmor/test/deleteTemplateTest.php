@@ -47,8 +47,12 @@ class deleteTemplateTest extends BaseTestCase
     {
         $projectId = self::getProjectId();
 
-        // Create template before retrieving it
-        self::createTemplate($projectId, self::$locationId, self::$templateId);
+        // Create template before retrieving it.
+        $this->runSnippetfile('create_template', [
+            $projectId,
+            self::$locationId,
+            self::$templateId,
+        ]);
 
         $output = $this->runSnippetfile('delete_template', [
             $projectId,

@@ -48,7 +48,11 @@ class getTemplateTest extends BaseTestCase
         $projectId = self::getProjectId();
 
         // Create template before retrieving it.
-        self::createTemplate($projectId, self::$locationId, self::$templateId);
+        $this->runSnippetfile('create_template', [
+            $projectId,
+            self::$locationId,
+            self::$templateId,
+        ]);
 
         $output = $this->runSnippetfile('get_template', [
             $projectId,
