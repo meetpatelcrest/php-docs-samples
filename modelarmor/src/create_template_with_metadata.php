@@ -57,12 +57,18 @@ $parent = $client->locationName($projectId, $locationId);
  * https://cloud.google.com/security-command-center/docs/reference/model-armor/rest/v1/projects.locations.templates#templatemetadata
  */
 
-$raiFilters = [
+ $raiFilters = [
+    (new RaiFilter())
+        ->setFilterType(RaiFilterType::DANGEROUS)
+        ->setConfidenceLevel(DetectionConfidenceLevel::HIGH),
     (new RaiFilter())
         ->setFilterType(RaiFilterType::HATE_SPEECH)
         ->setConfidenceLevel(DetectionConfidenceLevel::HIGH),
     (new RaiFilter())
         ->setFilterType(RaiFilterType::SEXUALLY_EXPLICIT)
+        ->setConfidenceLevel(DetectionConfidenceLevel::LOW_AND_ABOVE),
+    (new RaiFilter())
+        ->setFilterType(RaiFilterType::HARASSMENT)
         ->setConfidenceLevel(DetectionConfidenceLevel::MEDIUM_AND_ABOVE),
 ];
 
@@ -71,7 +77,8 @@ $filterConfig = (new FilterConfig())->setRaiSettings($raiSettings);
 
 $templateMetadata = (new TemplateMetadata())
     ->setIgnorePartialInvocationFailures(true)
-    ->setLogSanitizeOperations(true);
+    ->setLogSanitizeOperations(true)
+    ->setCustomPromptSafetyErrorCode(500);
 
 // Build template with filters and Metadata.
 $template = (new Template())

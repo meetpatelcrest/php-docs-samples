@@ -56,13 +56,19 @@ $parent = $client->locationName($projectId, $locationId);
  * https://cloud.google.com/security-command-center/docs/key-concepts-model-armor#ma-filters
  */
 
-$raiFilters = [
+ $raiFilters = [
+    (new RaiFilter())
+        ->setFilterType(RaiFilterType::DANGEROUS)
+        ->setConfidenceLevel(DetectionConfidenceLevel::HIGH),
     (new RaiFilter())
         ->setFilterType(RaiFilterType::HATE_SPEECH)
         ->setConfidenceLevel(DetectionConfidenceLevel::HIGH),
     (new RaiFilter())
         ->setFilterType(RaiFilterType::SEXUALLY_EXPLICIT)
-        ->setConfidenceLevel(DetectionConfidenceLevel::MEDIUM_AND_ABOVE)
+        ->setConfidenceLevel(DetectionConfidenceLevel::LOW_AND_ABOVE),
+    (new RaiFilter())
+        ->setFilterType(RaiFilterType::HARASSMENT)
+        ->setConfidenceLevel(DetectionConfidenceLevel::MEDIUM_AND_ABOVE),
 ];
 
 $raiFilterSetting = (new RaiFilterSettings())->setRaiFilters($raiFilters);
