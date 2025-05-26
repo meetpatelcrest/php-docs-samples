@@ -23,7 +23,7 @@ class createTemplateWithMetadataTest extends BaseTestCase
 {
     protected static function getTemplatePrefix(): string
     {
-        return 'php-create-template-with-metadata-';
+        return 'php-template-metadata-';
     }
 
     public function testCreateTemplateWithMetadata()

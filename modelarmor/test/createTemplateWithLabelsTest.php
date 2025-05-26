@@ -23,7 +23,7 @@ class createTemplateWithLabelsTest extends BaseTestCase
 {
     protected static function getTemplatePrefix(): string
     {
-        return 'php-create-template-with-labels-';
+        return 'php-template-labels-';
     }
 
     public function testCreateTemplateWithLabels()
