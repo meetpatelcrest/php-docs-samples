@@ -23,7 +23,7 @@ class createTemplateWithBasicSdpTest extends BaseTestCase
 {
     protected static function getTemplatePrefix(): string
     {
-        return 'php-create-template-with-basic-sdp-';
+        return 'php-template-basic-sdp-';
     }
 
     public function testCreateTemplateWithBasicSdp()

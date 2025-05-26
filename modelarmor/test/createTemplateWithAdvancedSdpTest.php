@@ -43,7 +43,7 @@ class createTemplateWithAdvancedSdpTest extends BaseTestCase
 
     protected static function getTemplatePrefix(): string
     {
-        return 'php-create-template-with-advanced-sdp-';
+        return 'php-template-advanced-sdp-';
     }
 
     protected static function customTeardown(): void
