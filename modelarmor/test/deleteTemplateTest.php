@@ -19,28 +19,11 @@ declare(strict_types=1);
 
 namespace Google\Cloud\Samples\ModelArmor;
 
-use Google\Cloud\ModelArmor\V1\CreateTemplateRequest;
-use Google\Cloud\ModelArmor\V1\FilterConfig;
-use Google\Cloud\ModelArmor\V1\Template;
-
 class deleteTemplateTest extends BaseTestCase
 {
     protected static function getTemplatePrefix(): string
     {
         return 'php-delete-template-';
-    }
-
-    private static function createTemplate(string $projectId, string $locationId, string $templateId): void
-    {
-        $template = new Template()->setFilterConfig(new FilterConfig());
-
-        // Set template properties here if needed
-        $request = (new CreateTemplateRequest())
-            ->setParent("projects/{$projectId}/locations/{$locationId}")
-            ->setTemplateId($templateId)
-            ->setTemplate($template);
-
-        self::$client->createTemplate($request);
     }
 
     public function testGetTemplate()
