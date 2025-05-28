@@ -21,12 +21,12 @@ namespace Google\Cloud\Samples\ModelArmor;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-if (count($argv) != 5) {
-    return printf("Usage: php %s PROJECT_ID LOCATION_ID TEMPLATE_ID MODEL_RESPONSE\n", basename(__FILE__));
+if (count($argv) != 6) {
+    return printf("Usage: php %s PROJECT_ID LOCATION_ID TEMPLATE_ID MODEL_RESPONSE USER_PROMPT\n", basename(__FILE__));
 }
-list($_, $projectId, $locationId, $templateId, $modelResponse) = $argv;
+list($_, $projectId, $locationId, $templateId, $modelResponse, $userPrompt) = $argv;
 
-// [START modelarmor_sanitize_model_response]
+// [START modelarmor_sanitize_model_response_with_user_prompt]
 // Import the ModelArmor client library.
 use Google\Cloud\ModelArmor\V1\Client\ModelArmorClient;
 use Google\Cloud\ModelArmor\V1\SanitizeModelResponseRequest;
@@ -37,6 +37,7 @@ use Google\Cloud\ModelArmor\V1\DataItem;
 // $locationId = 'YOUR_LOCATION_ID'; // e.g. 'us-central1';
 // $templateId = 'YOUR_TEMPLATE_ID'; // e.g. 'my-template';
 // $modelResponse = 'YOUR_MODEL_RESPONSE'; // e.g. 'my-model-response';
+// $userPrompt = 'YOUR_USER_PROMPT'; // e.g. 'my-user-prompt';
 
 // Specify regional endpoint.
 $options = ['apiEndpoint' => "modelarmor.$locationId.rep.googleapis.com"];
@@ -46,9 +47,10 @@ $client = new ModelArmorClient($options);
 
 $modelResponseRequest = (new SanitizeModelResponseRequest())
     ->setName("projects/$projectId/locations/$locationId/templates/$templateId")
-    ->setModelResponseData((new DataItem())->setText($modelResponse));
+    ->setModelResponseData((new DataItem())->setText($modelResponse))
+    ->setUserPrompt($userPrompt);
 
 $response = $client->sanitizeModelResponse($modelResponseRequest);
 
-printf('Result for Model Response Sanitization: %s' . PHP_EOL, $response->serializeToJsonString());
-// [END modelarmor_sanitize_model_response]
+printf('Result for Model Response Sanitization with User Prompt: %s' . PHP_EOL, $response->serializeToJsonString());
+// [END modelarmor_sanitize_model_response_with_user_prompt]
