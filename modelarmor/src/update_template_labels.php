@@ -32,12 +32,12 @@ use Google\Cloud\ModelArmor\V1\UpdateTemplateRequest;
 use Google\Cloud\ModelArmor\V1\Template;
 use Google\Protobuf\FieldMask;
 
-/** Uncomment and populate these variables in your code */
-// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; (e.g. 'my-project');
-// $locationId = 'YOUR_LOCATION_ID'; (e.g. 'my-location');
-// $templateId = 'YOUR_TEMPLATE_ID'; (e.g. 'my-template');
-// $labelKey = 'YOUR_LABEL_KEY'; (e.g. 'my-label-key');
-// $labelValue = 'YOUR_LABEL_VALUE'; (e.g. 'my-label-value');
+/** Uncomment and populate these variables in your code. */
+// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; // e.g. 'my-project';
+// $locationId = 'YOUR_LOCATION_ID'; // e.g. 'us-central1';
+// $templateId = 'YOUR_TEMPLATE_ID'; // e.g. 'my-template';
+// $labelKey = 'YOUR_LABEL_KEY'; // e.g. 'my-label-key';
+// $labelValue = 'YOUR_LABEL_VALUE'; // e.g. 'my-label-value';
 
 // Specify regional endpoint.
 $options = ['apiEndpoint' => "modelarmor.$locationId.rep.googleapis.com"];

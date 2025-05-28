@@ -37,12 +37,12 @@ use Google\Cloud\ModelArmor\V1\RaiFilterSettings\RaiFilter;
 use Google\Cloud\ModelArmor\V1\RaiFilterType;
 use Google\Cloud\ModelArmor\V1\DetectionConfidenceLevel;
 
-/** Uncomment and populate these variables in your code */
-// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; (e.g. 'my-project');
-// $locationId = 'YOUR_LOCATION_ID'; (e.g. 'my-location');
-// $templateId = 'YOUR_TEMPLATE_ID'; (e.g. 'my-template');
-// $labelKey = 'YOUR_LABEL_KEY'; (e.g. 'my-label-key');
-// $labelValue = 'YOUR_LABEL_VALUE'; (e.g. 'my-label-value');
+/** Uncomment and populate these variables in your code. */
+// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; // e.g. 'my-project';
+// $locationId = 'YOUR_LOCATION_ID'; // e.g. 'us-central1';
+// $templateId = 'YOUR_TEMPLATE_ID'; // e.g. 'my-template';
+// $labelKey = 'YOUR_LABEL_KEY'; // e.g. 'my-label-key';
+// $labelValue = 'YOUR_LABEL_VALUE'; // e.g. 'my-label-value';
 
 // Specify regional endpoint.
 $options = ['apiEndpoint' => "modelarmor.$locationId.rep.googleapis.com"];
@@ -53,7 +53,11 @@ $client = new ModelArmorClient($options);
 // Build the resource name of the parent location.
 $parent = $client->locationName($projectId, $locationId);
 
-// Create RAI filters.
+/** Add template metadata to the template.
+ * For more details on template metadata, please refer to the following doc:
+ * https://cloud.google.com/security-command-center/docs/reference/model-armor/rest/v1/projects.locations.templates#templatemetadata
+ */
+
 $raiFilters = [
     (new RaiFilter())
         ->setFilterType(RaiFilterType::DANGEROUS)
@@ -86,10 +90,4 @@ $request = (new CreateTemplateRequest())
 $response = $client->createTemplate($request);
 
 printf('Template created: %s' . PHP_EOL, $response->getName());
-
-$labelsArray = [];
-foreach ($template->getLabels() as $key => $value) {
-    $labelsArray[$key] = $value;
-}
-printf('Labels: %s' . PHP_EOL, json_encode($labelsArray));
 // [END modelarmor_create_template_with_labels]

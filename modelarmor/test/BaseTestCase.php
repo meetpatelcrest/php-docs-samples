@@ -13,7 +13,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 
 declare(strict_types=1);
 
@@ -58,9 +58,7 @@ abstract class BaseTestCase extends TestCase
     }
 
     abstract protected static function getTemplatePrefix(): string;
-    protected static function customTeardown(): void
-    {
-    }
+    protected static function customTeardown(): void {}
 
     protected function runSnippetfile(string $snippetName, array $params = []): string
     {

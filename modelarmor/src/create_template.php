@@ -37,10 +37,10 @@ use Google\Cloud\ModelArmor\V1\RaiFilterSettings;
 use Google\Cloud\ModelArmor\V1\RaiFilterSettings\RaiFilter;
 use Google\Cloud\ModelArmor\V1\DetectionConfidenceLevel;
 
-/** Uncomment and populate these variables in your code */
-// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; (e.g. 'my-project');
-// $locationId = 'YOUR_LOCATION_ID'; (e.g. 'my-location');
-// $templateId = 'YOUR_TEMPLATE_ID'; (e.g. 'my-template');
+/** Uncomment and populate these variables in your code. */
+// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; // e.g. 'my-project';
+// $locationId = 'YOUR_LOCATION_ID'; // e.g. 'us-central1';
+// $templateId = 'YOUR_TEMPLATE_ID'; // e.g. 'my-template';
 
 // Specify regional endpoint.
 $options = ['apiEndpoint' => "modelarmor.$locationId.rep.googleapis.com"];
@@ -56,7 +56,7 @@ $parent = $client->locationName($projectId, $locationId);
  * https://cloud.google.com/security-command-center/docs/key-concepts-model-armor#ma-filters
  */
 
- $raiFilters = [
+$raiFilters = [
     (new RaiFilter())
         ->setFilterType(RaiFilterType::DANGEROUS)
         ->setConfidenceLevel(DetectionConfidenceLevel::HIGH),
@@ -85,5 +85,5 @@ $request = (new CreateTemplateRequest)
 
 $response = $client->createTemplate($request);
 
-printf('Template created: %s' . PHP_EOL, $response->getName());
+printf("Template created: %s" . PHP_EOL, $response->getName());
 // [END modelarmor_create_template]

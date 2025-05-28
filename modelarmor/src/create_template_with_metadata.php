@@ -38,10 +38,10 @@ use Google\Cloud\ModelArmor\V1\RaiFilterSettings\RaiFilter;
 use Google\Cloud\ModelArmor\V1\DetectionConfidenceLevel;
 use Google\Cloud\ModelArmor\V1\Template\TemplateMetadata;
 
-/** Uncomment and populate these variables in your code */
-// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; (e.g. 'my-project');
-// $locationId = 'YOUR_LOCATION_ID'; (e.g. 'my-location');
-// $templateId = 'YOUR_TEMPLATE_ID'; (e.g. 'my-template');
+/** Uncomment and populate these variables in your code. */
+// $projectId = "YOUR_GOOGLE_CLOUD_PROJECT"; // e.g. 'my-project';
+// $locationId = 'YOUR_LOCATION_ID'; // e.g. 'us-central1';
+// $templateId = 'YOUR_TEMPLATE_ID'; // e.g. 'my-template';
 
 // Specify regional endpoint.
 $options = ['apiEndpoint' => "modelarmor.$locationId.rep.googleapis.com"];
@@ -57,7 +57,7 @@ $parent = $client->locationName($projectId, $locationId);
  * https://cloud.google.com/security-command-center/docs/reference/model-armor/rest/v1/projects.locations.templates#templatemetadata
  */
 
- $raiFilters = [
+$raiFilters = [
     (new RaiFilter())
         ->setFilterType(RaiFilterType::DANGEROUS)
         ->setConfidenceLevel(DetectionConfidenceLevel::HIGH),
@@ -76,9 +76,8 @@ $raiSettings = (new RaiFilterSettings())->setRaiFilters($raiFilters);
 $filterConfig = (new FilterConfig())->setRaiSettings($raiSettings);
 
 $templateMetadata = (new TemplateMetadata())
-    ->setIgnorePartialInvocationFailures(true)
-    ->setLogSanitizeOperations(true)
-    ->setCustomPromptSafetyErrorCode(500);
+    ->setLogTemplateOperations(true)
+    ->setLogSanitizeOperations(true);
 
 // Build template with filters and Metadata.
 $template = (new Template())
