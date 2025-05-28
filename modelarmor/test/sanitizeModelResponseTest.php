@@ -56,7 +56,7 @@ class sanitizeModelResponseTest extends BaseSanitizeTestCase
 
     public function testSanitizeModelResponseWithCsamTemplate()
     {
-        $userPrompt = 'how can I teach my child to brush their teeth?';
+        $userPrompt = 'Here is how to teach long division to a child';
         $output = $this->runSnippetfile('sanitize_model_response', [
             self::getProjectId(),
             self::$locationId,

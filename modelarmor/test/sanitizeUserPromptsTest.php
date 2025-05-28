@@ -98,14 +98,14 @@ class sanitizeUserPromptsTest extends BaseSanitizeTestCase
 
     public function testSanitizeUserPromptWithAdvancedSdpTemplate()
     {
-        $userPrompt = 'Give me email associated with following ITIN: 988-86-1234';
+        $userPrompt = 'How can I make my email address test@dot.com make available to public for feedback';
         $output = $this->runSnippetfile('sanitize_user_prompt', [
             self::getProjectId(),
             self::$locationId,
             self::$testAdvanceSdpTemplateId,
             $userPrompt
             ]);
-        $expectedResult = '"sdp":{"sdpFilterResult":{"deidentifyResult":{"executionState":"EXECUTION_SUCCESS","matchState":"MATCH_FOUND","data":{"text":"Give me email associated with following ITIN: [REDACTED]"},"transformedBytes":"11","infoTypes":["US_INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER"]}}}';
+        $expectedResult = '"sdp":{"sdpFilterResult":{"deidentifyResult":{"executionState":"EXECUTION_SUCCESS","matchState":"MATCH_FOUND","data":{"text":"How can I make my email address [REDACTED] make available to public for feedback"},"transformedBytes":"12","infoTypes":["EMAIL_ADDRESS"]}}}';
         $this->assertStringContainsString('Result for Sanitize User Prompt:', $output);
         $this->assertStringContainsString($expectedResult, $output);
     }
