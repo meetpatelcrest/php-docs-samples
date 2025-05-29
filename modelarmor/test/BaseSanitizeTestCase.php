@@ -213,7 +213,7 @@ abstract class BaseSanitizeTestCase extends TestCase
 
         // Create inspect template.
         $inspectTemplateResponse = self::$dlpClient->createInspectTemplate($inspectTemplateRequest);
-        $inspectTemplateName = $inspectTemplateResponse->getName();
+        self::$inspectTemplateName = $inspectTemplateResponse->getName();
 
         $replaceValueConfig = (new ReplaceValueConfig())->setNewValue((new Value())->setStringValue('[REDACTED]'));
         $primitiveTrasformation = (new PrimitiveTransformation())->setReplaceConfig($replaceValueConfig);
@@ -232,13 +232,13 @@ abstract class BaseSanitizeTestCase extends TestCase
 
         // Create deidentify template.
         $deidentifyTemplateResponse = self::$dlpClient->createDeidentifyTemplate($deidentifyTemplateRequest);
-        $deidentifyTemplateName = $deidentifyTemplateResponse->getName();
+        self::$deidentifyTemplateName = $deidentifyTemplateResponse->getName();
 
         self::$testAdvanceSdpTemplateId = self::$templateIdPrefix . '-advanced-sdp';
 
         $sdpAdvancedConfig = (new SdpAdvancedConfig())
-            ->setInspectTemplate($inspectTemplateName)
-            ->setDeidentifyTemplate($deidentifyTemplateName);
+            ->setInspectTemplate(self::$inspectTemplateName)
+            ->setDeidentifyTemplate(self::$deidentifyTemplateName);
 
         $sdpSettings = (new SdpFilterSettings())->setAdvancedConfig($sdpAdvancedConfig);
 
