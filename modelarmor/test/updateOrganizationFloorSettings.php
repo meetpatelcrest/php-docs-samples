@@ -32,7 +32,7 @@ class updateOrganizationFloorSettings extends TestCase
     {
         self::$organizationId = getenv("MA_ORG_ID");
     }
-    public function testGetFolderFloorSettings()
+    public function testUpdateOrganizationFloorSettings()
     {
         $output = $this->runSnippet('update_organization_floor_settings', [
             self::$organizationId,

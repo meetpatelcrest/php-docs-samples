@@ -32,7 +32,7 @@ class updateProjectFloorSettingsTest extends TestCase
     {
         self::$projectId = getenv("GOOGLE_PROJECT_ID");
     }
-    public function testGetFolderFloorSettings()
+    public function testUpdateProjectFloorSettings()
     {
         $output = $this->runSnippet('update_project_floor_settings', [
             self::$projectId,

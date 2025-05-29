@@ -32,7 +32,7 @@ class updateFolderFloorSettingsTest extends TestCase
     {
         self::$folderId = getenv("MA_FOLDER_ID");
     }
-    public function testGetFolderFloorSettings()
+    public function testUpdateFolderFloorSettings()
     {
         $output = $this->runSnippet('update_folder_floor_settings', [
             self::$folderId,
